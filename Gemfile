@@ -52,10 +52,13 @@ group :development do
   gem "web-console"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
 end
 
 # Use pg in production
 group :production do
   gem "pg"
 end
+
+gem "dockerfile-rails", ">= 1.7", group: :development
+
+gem "devise"
