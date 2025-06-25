@@ -102,7 +102,6 @@ GEM
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
-    error_highlight (0.7.0)
     erubi (1.13.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -291,7 +290,6 @@ DEPENDENCIES
   debug
   devise
   dockerfile-rails (>= 1.7)
-  error_highlight (>= 0.4.0)
   importmap-rails
   jbuilder
   pg
