@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: lyric_garden
+    env: ruby
+    plan: free
+    buildCommand: "bundle install && bundle exec rake db:migrate"
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: lyric_garden_db
+          property: connectionString
+
+databases:
+  - name: lyric_garden_db
+    plan: free
+    databaseName: lyric_garden_production
+    user: render
