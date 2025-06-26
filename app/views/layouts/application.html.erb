@@ -13,11 +13,20 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Tailwind CSS -->
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <!-- Font Awesome（アイコン用） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <!-- ナビゲーションバー -->
+    <%= render "shared/navbar" %>
+
     <% flash.each do |key, value| %>
       <div class="flash <%= key %>"><%= value %></div>
     <% end %>
