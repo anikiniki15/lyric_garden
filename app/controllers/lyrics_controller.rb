@@ -8,9 +8,11 @@ class LyricsController < ApplicationController
 
   def create
     @lyric = current_user.lyrics.build(lyric_params)
+
     if @lyric.save
       redirect_to root_path, notice: "歌詞を投稿しました！"
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
