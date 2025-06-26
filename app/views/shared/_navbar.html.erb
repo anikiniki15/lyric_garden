@@ -1,0 +1,42 @@
+<header class="bg-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- ロゴ -->
+    <%= link_to "Lyric Garden", root_path, class: "text-2xl font-bold text-blue-600" %>
+
+    <!-- ナビゲーションメニュー -->
+    <div class="flex items-center space-x-4">
+      <!-- 追加箇所は if 文の上あたりがおすすめ -->
+      <p class="text-xs text-red-600">ログイン状態: <%= user_signed_in? %></p>
+      <% if user_signed_in? %>
+        <!-- ログイン時：アイコンボタンでドロップダウン -->
+        <div class="relative group inline-block">
+            <!-- ボタン -->
+            <button type="button" class="text-gray-700 text-xl flex items-center">
+                <i class="fas fa-user"></i>
+            </button>
+
+            <!-- メニュー -->
+            <div
+                class="absolute right-0 top-full mt-1 w-32 bg-white rounded-md shadow-lg
+                    opacity-0 invisible
+                    group-hover:opacity-100 group-hover:visible
+                    transition duration-150 ease-out">
+                <%= link_to "マイページ", "#", #<!-- user_path(current_user) -->
+                    class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <%= link_to "ログアウト",
+                    destroy_user_session_path,
+                    data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },
+                    class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            </div>
+        </div>
+
+      <% else %>
+        <!-- 非ログイン時：ログイン・新規登録 -->
+        <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-blue-600" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "ml-2 text-gray-700 hover:text-blue-600" %>
+        <!-- 強制ログイン確認用リンク -->
+        <%= link_to "ログイン画面へ", new_user_session_path, class: "text-red-500" %>
+      <% end %>
+    </div>
+  </div>
+</header>
