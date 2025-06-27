@@ -7,3 +7,14 @@
 <% end %>
 
 <p class="text-sm text-gray-600">投稿者：<%= @lyric.user.name || "名無しさん" %></p>
+
+<p class="text-sm text-gray-500">
+  投稿日時: <%= @lyric.created_at.strftime("%Y年%-m月%-d日 %H:%M") %>
+</p>
+<p class="text-sm text-gray-500">
+  更新日時: <%= @lyric.updated_at.strftime("%Y年%-m月%-d日 %H:%M") %>
+</p>
+
+<div class="mt-8 text-center">
+  <%= link_to "トップページに戻る", root_path, class: "inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
+</div>
