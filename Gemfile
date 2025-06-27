@@ -65,3 +65,5 @@ end
 gem "dockerfile-rails", ">= 1.7", group: :development
 
 gem "devise"
+
+gem "kaminari"

@@ -1,0 +1,18 @@
+<h1 class="text-2xl font-bold mb-6 text-center">歌詞一覧</h1>
+
+<div class="space-y-4">
+  <% @lyrics.each do |lyric| %>
+    <div class="bg-white rounded-lg shadow p-4 hover:bg-gray-50">
+      <h2 class="text-xl font-semibold text-blue-600">
+        <%= link_to lyric.title, lyric_path(lyric) %>
+      </h2>
+      <p class="text-sm text-gray-500 mt-1">
+        投稿者: <%= lyric.user.name || "名無し" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-6 flex justify-center">
+  <%= paginate @lyrics %>
+</div>

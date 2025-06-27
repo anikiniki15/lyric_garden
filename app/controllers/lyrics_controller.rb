@@ -1,5 +1,10 @@
 class LyricsController < ApplicationController
-  before_action :authenticate_user!
+  # new と create のみ認証を要求する
+  before_action :authenticate_user!, only: [ :new, :create ]
+
+  def index
+    @lyrics = Lyric.includes(:user).order(created_at: :desc).page(params[:page])
+  end
 
   def new
     @lyric = Lyric.new
@@ -9,7 +14,6 @@ class LyricsController < ApplicationController
     @lyric = current_user.lyrics.build(lyric_params)
 
     if @lyric.save
-      # redirect_to root_path, notice: "歌詞を投稿しました！"
       redirect_to @lyric, notice: "歌詞を投稿しました"
     else
       flash.now[:alert] = "投稿に失敗しました。"
@@ -18,7 +22,7 @@ class LyricsController < ApplicationController
   end
 
   def show
-  @lyric = Lyric.find(params[:id])
+    @lyric = Lyric.find(params[:id])
   end
 
   private
