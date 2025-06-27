@@ -1,6 +1,6 @@
 class LyricsController < ApplicationController
   # new と create のみ認証を要求する
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [ :new, :create ]
 
   def index
     @lyrics = Lyric.includes(:user).order(created_at: :desc).page(params[:page])
