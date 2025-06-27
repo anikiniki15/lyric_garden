@@ -8,10 +8,12 @@
       <!-- 追加箇所は if 文の上あたりがおすすめ -->
       <p class="text-xs text-red-600">ログイン状態: <%= user_signed_in? %></p>
       <% if user_signed_in? %>
+        <%= link_to "新規投稿", new_lyric_path, class: "ml-2 text-gray-700 hover:text-blue-600" %>
+
         <!-- ログイン時：アイコンボタンでドロップダウン -->
         <div class="relative group inline-block">
             <!-- ボタン -->
-            <button type="button" class="text-gray-700 text-xl flex items-center">
+            <button type="button" class="text-  gray-700 text-xl flex items-center">
                 <i class="fas fa-user"></i>
             </button>
 
