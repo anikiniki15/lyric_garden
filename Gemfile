@@ -18,6 +18,7 @@ gem "pg"
 gem "dockerfile-rails", ">= 1.7", group: :development
 gem "devise"
 gem "kaminari"
+gem "ransack"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

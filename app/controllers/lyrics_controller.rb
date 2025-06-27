@@ -3,7 +3,8 @@ class LyricsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create ]
 
   def index
-    @lyrics = Lyric.includes(:user).order(created_at: :desc).page(params[:page])
+    @q = Lyric.ransack(params[:q])
+    @lyrics = @q.result.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def new
