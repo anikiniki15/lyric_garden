@@ -1,10 +1,13 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./app/views/**/*.html.erb",
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
     "./app/components/**/*.{rb,html.erb}"
+  ],
+  safelist: [
+    'bg-brand',
+    'hover:bg-brand-dark'
   ],
   theme: {
     extend: {
@@ -17,4 +20,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}

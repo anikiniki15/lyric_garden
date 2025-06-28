@@ -5,7 +5,7 @@ class Lyric < ApplicationRecord
   validates :body, presence: true, length: { maximum: 5000 }
   validates :reference, length: { maximum: 100 }, allow_blank: true
 
-  paginates_per 10  # ← 1ページ10件に変更
+  paginates_per 9  # ← 1ページ10件に変更
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title body reference created_at id updated_at user_id]
