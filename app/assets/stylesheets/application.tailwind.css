@@ -1,0 +1,6 @@
+/* 調整したい場合は @config でパス指定 */
+@config "./tailwind.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
