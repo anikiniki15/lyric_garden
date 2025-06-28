@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      lyric: 歌詞
+    attributes:
+      lyric:
+        title: タイトル
+        body: 本文

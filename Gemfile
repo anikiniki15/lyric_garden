@@ -19,6 +19,9 @@ gem "dockerfile-rails", ">= 1.7", group: :development
 gem "devise"
 gem "kaminari"
 gem "ransack"
+gem "rails-i18n"
+gem "devise-i18n"
+gem "devise-i18n-views"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
