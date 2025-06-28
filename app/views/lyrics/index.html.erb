@@ -1,26 +1,50 @@
-<h1 class="text-2xl font-bold mb-6 text-center">歌詞一覧</h1>
+<div class="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16">
+  <h1 class="text-2xl font-bold text-center mt-8 mb-4">歌詞一覧</h1>
 
-<%= search_form_for @q, url: lyrics_path, method: :get do |f| %>
-  <div class="search-box">
-    <%= f.label :title_or_body_or_reference_cont, "キーワード検索" %><br>
-    <%= f.search_field :title_or_body_or_reference_cont, placeholder: "タイトル・本文・参考作品", class: "form-control" %>
-    <%= f.submit "検索", class: "btn btn-primary mt-2" %>
-  </div>
-<% end %>
-
-<div class="space-y-4">
-  <% @lyrics.each do |lyric| %>
-    <div class="bg-white rounded-lg shadow p-4 hover:bg-gray-50">
-      <h2 class="text-xl font-semibold text-blue-600">
-        <%= link_to lyric.title, lyric_path(lyric) %>
-      </h2>
-      <p class="text-sm text-gray-500 mt-1">
-        投稿者: <%= lyric.user.name || "名無し" %>
-      </p>
+  <%= search_form_for @q, url: lyrics_path, method: :get, class: "max-w-xl mx-auto my-6" do |f| %>
+    <div class="flex flex-col sm:flex-row items-center gap-2">
+      <%= f.search_field :title_or_body_or_reference_cont,
+            placeholder: "タイトル・本文・参考作品",
+            class: "flex-grow border border-gray-300 rounded px-3 py-2 w-full sm:w-auto focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
+      <%= f.submit "検索", class: "px-6 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
     </div>
   <% end %>
-</div>
 
-<div class="mt-6 flex justify-center">
-  <%= paginate @lyrics %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+    <% @lyrics.each do |lyric| %>
+      <div class="bg-white rounded-xl shadow-md p-4 flex flex-col justify-between border border-gray-300 hover:shadow-lg transition">
+        <!-- タイトル -->
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">
+          <%= link_to lyric.title, lyric_path(lyric), class: "hover:underline" %>
+        </h2>
+
+        <!-- タグ（仮：固定で表示） -->
+        <div class="flex flex-wrap gap-1 mb-2">
+          <% ["桜", "春", "卒業"].each do |tag| %>
+            <!-- TODO: Tailwindカスタムカラーが使えるようになったらstyle属性を外してbg-brandに戻す -->
+            <span class="text-white text-xs px-2 py-0.5 rounded-full" style="background-color:#9AC94E;">
+              <%= tag %>
+            </span>
+          <% end %>
+        </div>
+
+        <!-- 投稿者と投稿日 -->
+        <div class="text-xs text-gray-500 flex justify-between items-center mt-auto">
+          <span><%= lyric.user&.name || "名無し" %></span>
+          <span><%= lyric.created_at.strftime("%Y/%-m/%-d") %></span>
+        </div>
+
+        <!-- お気に入りボタン（仮） -->
+        <div class="text-right mt-2">
+          <i class="fa-regular fa-star text-gray-400 hover:text-yellow-400 cursor-pointer"></i>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 flex justify-center">
+    <%= paginate @lyrics %>
+  </div>
 </div>
+<!-- これは一時的なダミー。どこでもいいので1行だけ追加してOK！ -->
+<div class="bg-brand hover:bg-brand-dark hidden"></div>
