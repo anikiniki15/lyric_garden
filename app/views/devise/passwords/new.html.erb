@@ -1,16 +1,37 @@
-<h2>Forgot your password?</h2>
+<div class="flex justify-center items-center min-h-[70vh]">
+  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl">
+    <h1 class="text-3xl font-bold text-center mb-8">パスワード再設定</h1>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <% if resource.errors.any? %>
+      <div class="bg-red-100 text-red-600 rounded p-4 mb-6">
+        <h2 class="font-semibold mb-2">エラーが発生しました</h2>
+        <ul class="list-disc pl-6">
+          <% resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% elsif flash[:notice] %>
+      <div class="bg-green-100 text-green-700 rounded p-4 mb-6 text-center">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="mb-6">
+        <%= f.label :email, "メールアドレス", class: "block mb-2 font-semibold" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
+
+      <div class="flex flex-col gap-4 items-center">
+        <%= f.submit "パスワード再設定メールを送信", class: "w-full sm:w-auto px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+    <% end %>
+
+    <div class="my-6 border-t border-gray-200 pt-6">
+      <div class="flex justify-center">
+        <%= link_to "ログインページへ戻る", new_session_path(resource_name), class: "px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
