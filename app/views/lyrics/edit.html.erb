@@ -18,8 +18,6 @@
       <%= form.text_field :title, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
     </div>
 
-    <!-- タグ欄はMVP後で追加 -->
-
     <div class="mb-4">
       <%= form.label :reference, "参考作品（任意）", class: "block font-semibold mb-1" %>
       <%= form.text_field :reference, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
@@ -30,8 +28,17 @@
       <%= form.text_area :body, rows: 8, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
     </div>
 
-    <div class="flex justify-center">
+    <div class="flex justify-center mb-4">
       <%= form.submit "更新する", class: "px-8 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+    </div>
+  <% end %>
+
+  <%# 投稿者のみ削除ボタン表示（セキュリティはControllerで制御済み） %>
+  <% if user_signed_in? && @lyric.user == current_user %>
+    <div class="flex justify-center mt-4">
+      <%= link_to "削除する", lyric_path(@lyric),
+          data: { turbo_method: :delete, turbo_confirm: "本当に削除してもいいですか？" },
+          class: "px-8 py-2 bg-red-500 text-white rounded shadow-md hover:bg-red-600 transition font-semibold text-lg" %>
     </div>
   <% end %>
 </div>
