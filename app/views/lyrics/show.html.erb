@@ -1,20 +1,57 @@
-<h1 class="text-2xl font-bold mb-2"><%= @lyric.title %></h1>
+<div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-10">
+  <!-- タイトル -->
+  <h1 class="text-3xl font-bold text-center mb-4"><%= @lyric.title %></h1>
 
-<p class="text-gray-700 mb-4"><%= simple_format(@lyric.body) %></p>
+  <!-- ダミー：お気に入り数・タグ
+  <div class="flex flex-wrap justify-center items-center gap-2 mb-4">
+    <span class="flex items-center text-gray-500 text-lg mr-4">
+      <i class="fa-regular fa-star mr-1"></i> 2357
+    </span>
+    <% ["桜", "春", "卒業"].each do |tag| %>
+      <span class="bg-brand text-white text-xs px-2 py-0.5 rounded-full"><%= tag %></span>
+    <% end %>
+  </div>
+  -->
 
-<% if @lyric.reference.present? %>
-  <p class="text-sm text-gray-600">参考作品：<%= @lyric.reference %></p>
-<% end %>
+  <!-- 投稿者・日付・参考作品 -->
+  <div class="flex flex-col justify-center items-center text-gray-600 text-sm mb-4 gap-3">
+    <!-- span>投稿者: <%= @lyric.user&.name || "名無しさん" %></span>　-->
+    <span>投稿日時: <%= @lyric.created_at.strftime("%Y/%-m/%-d %H:%M") %> </span>
+    <% if @lyric.reference.present? %>
+      <span>参考作品: <%= @lyric.reference %></span>
+    <% end %>
+  </div>
 
-<p class="text-sm text-gray-600">投稿者：<%= @lyric.user.name || "名無しさん" %></p>
+  <!-- ダミー：感情スタンプ
+  <div class="flex justify-center gap-6 my-4">
+    <% [["👍", 234], ["😢", 234], ["🔥", 234], ["💡", 234]].each do |emoji, count| %>
+      <span class="flex items-center gap-1 text-lg">
+        <%= emoji %> <span class="text-base"><%= count %></span>
+      </span>
+    <% end %>
+  </div>
+  -->
 
-<p class="text-sm text-gray-500">
-  投稿日時: <%= @lyric.created_at.strftime("%Y年%-m月%-d日 %H:%M") %>
-</p>
-<p class="text-sm text-gray-500">
-  更新日時: <%= @lyric.updated_at.strftime("%Y年%-m月%-d日 %H:%M") %>
-</p>
+  <!-- ダミー：画像（仮でグレー枠）
+  <div class="flex justify-center my-4">
+    <div class="w-72 h-48 bg-gray-200 flex items-center justify-center rounded">
+      <i class="fa-regular fa-image text-5xl text-gray-400"></i>
+    </div>
+  </div>
+  -->
 
-<div class="mt-8 text-center">
-  <%= link_to "トップページに戻る", root_path, class: "inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
+  <!-- 歌詞本文 -->
+  <div class="my-6 border-t border-gray-200 pt-6">
+    <div class="whitespace-pre-line text-lg leading-relaxed text-gray-900">
+      <%= simple_format(@lyric.body) %>
+    </div>
+  </div>
+
+  <!-- トップページへのリンク -->
+  <div class="my-6 border-t border-gray-200 pt-6">
+    <div class="mt-8 text-center">
+      <%= link_to "トップページに戻る", root_path,
+            class: "inline-block px-6 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+    </div>
+  </div>
 </div>
