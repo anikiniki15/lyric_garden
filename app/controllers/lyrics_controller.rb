@@ -1,8 +1,8 @@
 class LyricsController < ApplicationController
-  # new, create, edit, update のみ認証を要求
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
-  before_action :set_lyric, only: [ :show, :edit, :update ]
-  before_action :correct_user, only: [ :edit, :update ]
+  # new, create, edit, update, destroy のみ認証を要求
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_lyric, only: [ :show, :edit, :update, :destroy ]
+  before_action :correct_user, only: [ :edit, :update, :destroy ]
 
   def index
     @q = Lyric.ransack(params[:q])
@@ -25,20 +25,22 @@ class LyricsController < ApplicationController
   end
 
   def show
-    # @lyric = Lyric.find(params[:id])  ← 上で共通化
   end
 
   def edit
-    # @lyric = Lyric.find(params[:id])  ← 上で共通化
   end
 
   def update
-    # @lyric = Lyric.find(params[:id])  ← 上で共通化
     if @lyric.update(lyric_params)
       redirect_to @lyric, notice: "歌詞を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @lyric.destroy
+    redirect_to lyrics_path, notice: "歌詞を削除しました"
   end
 
   private
@@ -47,10 +49,9 @@ class LyricsController < ApplicationController
     @lyric = Lyric.find(params[:id])
   end
 
-  # 投稿者だけ編集/更新できるように
   def correct_user
     unless @lyric.user_id == current_user&.id
-      redirect_to root_path, alert: "編集権限がありません。"
+      redirect_to root_path, alert: "権限がありません。"
     end
   end
 
