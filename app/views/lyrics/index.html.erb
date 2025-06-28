@@ -18,26 +18,33 @@
           <%= link_to lyric.title, lyric_path(lyric), class: "hover:underline" %>
         </h2>
 
-        <!-- タグ（仮：固定で表示） -->
+        <!-- タグ（仮：固定で表示）
         <div class="flex flex-wrap gap-1 mb-2">
-          <% ["桜", "春", "卒業"].each do |tag| %>
+          <% ["桜", "春", "卒業"].each do |tag| %> -->
             <!-- TODO: Tailwindカスタムカラーが使えるようになったらstyle属性を外してbg-brandに戻す -->
-            <span class="text-white text-xs px-2 py-0.5 rounded-full" style="background-color:#9AC94E;">
+            <!-- <span class="text-white text-xs px-2 py-0.5 rounded-full" style="background-color:#9AC94E;">
               <%= tag %>
             </span>
           <% end %>
-        </div>
+        </div> -->
 
         <!-- 投稿者と投稿日 -->
         <div class="text-xs text-gray-500 flex justify-between items-center mt-auto">
-          <span><%= lyric.user&.name || "名無し" %></span>
+          <!-- <span><%= lyric.user&.name || "名無し" %></span> -->
           <span><%= lyric.created_at.strftime("%Y/%-m/%-d") %></span>
         </div>
 
-        <!-- お気に入りボタン（仮） -->
+        <!-- 歌詞本文の冒頭20文字 -->
+        <div class="my-1 border-t border-gray-200 pt-1">
+          <div class="text-sm text-gray-700 mt-1 mb-1">
+            <%= truncate(lyric.body, length: 20) %>
+          </div>
+        </div>
+
+        <!-- お気に入りボタン（仮）
         <div class="text-right mt-2">
           <i class="fa-regular fa-star text-gray-400 hover:text-yellow-400 cursor-pointer"></i>
-        </div>
+        </div> -->
       </div>
     <% end %>
   </div>
@@ -46,5 +53,3 @@
     <%= paginate @lyrics %>
   </div>
 </div>
-<!-- これは一時的なダミー。どこでもいいので1行だけ追加してOK！ -->
-<div class="bg-brand hover:bg-brand-dark hidden"></div>

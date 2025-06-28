@@ -1,43 +1,76 @@
-<header class="bg-white shadow-md">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <!-- ロゴ -->
-    <%= link_to "Lyric Garden", root_path, class: "text-2xl font-bold text-blue-600" %>
+<!-- app/views/shared/_navbar.html.erb -->
+<style>
+  .user-menu-container {
+    position: relative;
+    display: inline-block;
+  }
+  .user-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .user-menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 2px);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 24px #0002;
+    min-width: 120px;
+    overflow: hidden;
+    z-index: 20;
+  }
+  .user-menu-container:hover .user-menu-dropdown,
+  .user-menu-container:focus-within .user-menu-dropdown {
+    display: block;
+  }
+</style>
 
-    <!-- ナビゲーションメニュー -->
-    <div class="flex items-center space-x-4">
-      <!-- 追加箇所は if 文の上あたりがおすすめ -->
-      <p class="text-xs text-red-600">ログイン状態: <%= user_signed_in? %></p>
+<header style="background: #AEC950;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 32px;">
+    <!-- ロゴ＋葉っぱ -->
+    <div style="display: flex; align-items: center;">
+      <%= link_to root_path, style: "display: flex; align-items: center; text-decoration: none;" do %>
+        <span style="font-size: 2.4rem; font-weight: bold; color: #fff; letter-spacing: 1px;">Lyric Garden</span>
+        <!-- 葉っぱアイコン例（SVG。好みで差し替えてOK） -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg" style="display: inline; vertical-align: middle;">
+          <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20C19,20,22,3,22,3,21,5,14,5.25,9,6.25S2,11.5,2,13.5a6.22,6.22,0,0,0,1.75,3.75C7,8,17,8,17,8Z"/>
+        </svg>
+      <% end %>
+    </div>
+
+    <!-- メニュー部分 -->
+    <div style="display: flex; align-items: center; gap: 28px;">
       <% if user_signed_in? %>
-        <%= link_to "新規投稿", new_lyric_path, class: "ml-2 text-gray-700 hover:text-blue-600" %>
-
-        <!-- ログイン時：アイコンボタンでドロップダウン -->
-        <div class="relative group inline-block">
-            <!-- ボタン -->
-            <button type="button" class="text-  gray-700 text-xl flex items-center">
-                <i class="fas fa-user"></i>
-            </button>
-
-            <!-- メニュー -->
-            <div
-                class="absolute right-0 top-full mt-1 w-32 bg-white rounded-md shadow-lg
-                    opacity-0 invisible
-                    group-hover:opacity-100 group-hover:visible
-                    transition duration-150 ease-out">
-                <%= link_to "マイページ", "#", #<!-- user_path(current_user) -->
-                    class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
-                <%= link_to "ログアウト",
-                    destroy_user_session_path,
-                    data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },
-                    class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
-            </div>
+        <!-- 新規投稿 -->
+        <%= link_to "新規投稿", new_lyric_path, style: "color: #fff; font-size: 1.7rem; font-weight: normal; margin-right: 16px; letter-spacing: 1px; text-decoration: none;" %>
+        
+        <!-- 通知ベル（現在非表示、復活時はコメントアウト外してOK） -->
+        <%# 
+        <div style="position: relative; margin-right: 16px;">
+          <i class="fas fa-bell" style="font-size: 2rem; color: #fff;"></i>
+          <span style="position: absolute; top: 2px; right: 1px; width: 10px; height: 10px; background: #FF7100; border-radius: 50%; display: inline-block; border: 2px solid #AEC950;"></span>
         </div>
+        %>
 
+        <!-- ユーザーアイコン＋ドロップダウン（hover&focus） -->
+        <div class="user-menu-container">
+          <button type="button" class="user-menu-btn">
+            <!-- 人アイコン（FontAwesome） -->
+            <i class="fas fa-user" style="font-size: 2.2rem; color: #fff; border: 2px solid #fff; border-radius: 10px; padding: 4px 10px;"></i>
+          </button>
+          <div class="user-menu-dropdown">
+            <!-- <%= link_to "マイページ", "#", style: "display: block; padding: 10px 18px; color: #444; text-decoration: none; font-weight: bold;" %> -->
+            <%= link_to "ログアウト", destroy_user_session_path,
+                data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },
+                style: "display: block; padding: 10px 18px; color: #444; text-decoration: none; font-weight: bold;" %>
+          </div>
+        </div>
       <% else %>
-        <!-- 非ログイン時：ログイン・新規登録 -->
-        <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-blue-600" %>
-        <%= link_to "新規登録", new_user_registration_path, class: "ml-2 text-gray-700 hover:text-blue-600" %>
-        <!-- 強制ログイン確認用リンク -->
-        <%= link_to "ログイン画面へ", new_user_session_path, class: "text-red-500" %>
+        <!-- 非ログイン時：新規登録・ログイン -->
+        <%= link_to "新規登録", new_user_registration_path, style: "color: #fff; font-size: 1.7rem; font-weight: normal; margin-right: 16px; letter-spacing: 1px; text-decoration: none;" %>
+        <%= link_to "ログイン", new_user_session_path, style: "color: #fff; font-size: 1.7rem; font-weight: normal; letter-spacing: 1px; text-decoration: none;" %>
       <% end %>
     </div>
   </div>
