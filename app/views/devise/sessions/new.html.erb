@@ -1,26 +1,47 @@
-<h2>Log in</h2>
+<div class="flex justify-center items-center min-h-[70vh]">
+  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl">
+    <h1 class="text-3xl font-bold text-center mb-8">ログイン</h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <% if flash[:alert].present? %>
+      <div class="bg-red-100 text-red-600 rounded p-4 mb-6">
+        <h2 class="font-semibold mb-2">エラーが発生しました</h2>
+        <ul class="list-disc pl-6">
+          <li><%= flash[:alert] %></li>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-5">
+        <%= f.label :email, "メールアドレス", class: "block mb-2 font-semibold" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <div class="mb-5">
+        <%= f.label :password, "パスワード", class: "block mb-2 font-semibold" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="mb-5 flex items-center">
+          <%= f.check_box :remember_me, class: "mr-2" %>
+          <%= f.label :remember_me, "ログイン状態を保持する", class: "font-medium" %>
+        </div>
+      <% end %>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-2">
+        <%= f.submit "ログイン", class: "w-full sm:w-auto px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-2">
+        <%= link_to "パスワードをお忘れの方はこちら", new_user_password_path, class: "w-full sm:w-auto px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+    <% end %>
+
+    <div class="my-6 border-t border-gray-200 pt-6">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <%= link_to "新規登録", new_user_registration_path, class: "px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
