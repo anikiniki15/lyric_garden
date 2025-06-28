@@ -1,29 +1,43 @@
-<h2>Sign up</h2>
+<div class="flex justify-center items-center min-h-[70vh]">
+  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl">
+    <h1 class="text-3xl font-bold text-center mb-8">新規登録</h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <% if resource.errors.any? %>
+      <div class="bg-red-100 text-red-600 rounded p-4 mb-6">
+        <h2 class="font-semibold mb-2">エラーが発生しました</h2>
+        <ul class="list-disc pl-6">
+          <% resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="mb-5">
+        <%= f.label :email, "メールアドレス", class: "block mb-2 font-semibold" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
+
+      <div class="mb-5">
+        <%= f.label :password, "パスワード", class: "block mb-2 font-semibold" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
+
+      <div class="mb-8">
+        <%= f.label :password_confirmation, "パスワード（確認用）", class: "block mb-2 font-semibold" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9AC94E]" %>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <%= f.submit "登録してログイン", class: "w-full sm:w-auto px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+    <% end %>
+
+    <div class="my-6 border-t border-gray-200 pt-6">
+      <div class="flex justify-center">
+        <%= link_to "ログインページ", new_session_path(resource_name), class: "px-8 py-3 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
