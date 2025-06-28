@@ -47,8 +47,15 @@
     </div>
   </div>
 
-  <!-- トップページへのリンク -->
   <div class="my-6 border-t border-gray-200 pt-6">
+    <!-- 投稿者かどうかでボタンの表示を制御 -->
+    <% if current_user && @lyric.user_id == current_user.id %>
+      <div class="flex justify-center mb-4">
+        <%= link_to "編集する", edit_lyric_path(@lyric), class: "inline-block px-6 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg mr-2" %>
+      </div>
+    <% end %>
+
+    <!-- トップページへのリンク -->
     <div class="mt-8 text-center">
       <%= link_to "トップページに戻る", root_path,
             class: "inline-block px-6 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>

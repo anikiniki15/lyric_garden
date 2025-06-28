@@ -1,0 +1,37 @@
+<h1 class="text-2xl font-bold text-center mt-8 mb-8">歌詞を編集する</h1>
+
+<div class="max-w-2xl mx-auto bg-white rounded-xl shadow p-8">
+  <% if @lyric.errors.any? %>
+    <div class="mb-4 text-red-600">
+      <h2><%= pluralize(@lyric.errors.count, "エラー") %>が発生しました:</h2>
+      <ul class="list-disc pl-5">
+        <% @lyric.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with(model: @lyric, local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :title, "タイトル", class: "block font-semibold mb-1" %>
+      <%= form.text_field :title, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
+    </div>
+
+    <!-- タグ欄はMVP後で追加 -->
+
+    <div class="mb-4">
+      <%= form.label :reference, "参考作品（任意）", class: "block font-semibold mb-1" %>
+      <%= form.text_field :reference, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :body, "本文", class: "block font-semibold mb-1" %>
+      <%= form.text_area :body, rows: 8, class: "border border-gray-300 rounded w-full p-2 focus:border-[#9AC94E] focus:ring-2 focus:ring-[#9AC94E] transition" %>
+    </div>
+
+    <div class="flex justify-center">
+      <%= form.submit "更新する", class: "px-8 py-2 bg-[#9AC94E] text-white rounded shadow-md hover:bg-[#7AAA3D] transition font-semibold text-lg" %>
+    </div>
+  <% end %>
+</div>
