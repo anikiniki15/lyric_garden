@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :lyrics, only: [:index, :show, :new, :create, :edit, :update]
+  resources :lyrics, only: [ :index, :show, :new, :create, :edit, :update ]
 
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check

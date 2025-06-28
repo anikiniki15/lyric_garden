@@ -1,8 +1,8 @@
 class LyricsController < ApplicationController
   # new, create, edit, update のみ認証を要求
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
-  before_action :set_lyric, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :set_lyric, only: [ :show, :edit, :update ]
+  before_action :correct_user, only: [ :edit, :update ]
 
   def index
     @q = Lyric.ransack(params[:q])
