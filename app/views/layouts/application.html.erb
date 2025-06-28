@@ -28,7 +28,11 @@
     <%= render "shared/navbar" %>
 
     <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
+      <div class="fixed top-1/10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 
+                  px-6 py-2 rounded shadow-lg text-white font-bold text-xl
+                  <%= key == 'notice' ? 'bg-green-500' : 'bg-red-500' %> animate-bounce">
+        <%= value %>
+      </div>
     <% end %>
 
     <%= yield %>
