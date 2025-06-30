@@ -100,7 +100,7 @@ GEM
       devise (>= 4.9.0)
       rails-i18n
     devise-i18n-views (0.3.7)
-    dockerfile-rails (1.7.9)
+    dockerfile-rails (1.7.10)
       rails (>= 3.0.0)
     drb (2.2.3)
     erb (5.0.1)
